@@ -1,11 +1,14 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import HomeScreen from "./pages/HomeScreen"
 
 const App = () => {
 
   return (
-    <div className="App text-[#ece6d9] bg-[#1a1a1e] font-bold text-6xl flex justify-center items-center min-h-screen "
-    >
-      OUTLAST
-    </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+        </Routes>
+      </Router>
   )
 }
 
