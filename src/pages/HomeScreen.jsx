@@ -5,7 +5,7 @@ const HomeScreen = () => {
     <div
       className=" bg-primary min-h-screen text-text  "
     >
-      OUTLAST
+      
     </div>
   )
 }
