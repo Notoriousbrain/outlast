@@ -12,7 +12,7 @@ const NavBar = ({ profile }) => {
             className={" flex p-2 md:p-4 text-text " }
         >
             <div
-                className="flex justify-between flex-row border p-4 border-border h-full w-full flex-1 items-center rounded-full  "
+                className="flex justify-between flex-row border p-2 border-border h-full w-full flex-1 items-center rounded-full  "
             >
                 {/* logo */}
 
@@ -33,6 +33,12 @@ const NavBar = ({ profile }) => {
                 <div
                     className="flex flex-row gap-2 md:gap-4 items-center"
                 >
+                    <h1
+                        onClick={() => navigate("/create-trip") }
+                        className=" bg-[#ffc44f] p-2 md:hover:px-6  rounded-full px-4 font-bold duration-200 hover:blur-[1px] cursor-pointer"
+                    >
+                        Create Trip
+                    </h1>
                     <h1
                         onClick={() => profile ? navigate("/profile") : navigate("/login")}
                         className=" border border-lightBorder p-2 md:hover:px-6  rounded-full px-4 font-bold duration-200 hover:blur-[1px] cursor-pointer"
