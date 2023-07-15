@@ -19,7 +19,7 @@ export function* registerLoginSignOutSagaCall(action) {
   try {
     yield put(actionCreators.toggleFirebaseLoader(true))
     if (action?.method === "register") {
-      yield handleRegistration(action?.profile, action?.data)
+      yield handleRegistration(action?.dispatch, action?.profile, action?.data)
       toast.success("Account registered successfully.")
     } else if (action?.method === "login") {
       yield handleSignIn(action?.profile, action?.data)

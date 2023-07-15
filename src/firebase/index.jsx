@@ -47,7 +47,7 @@ export const FirebaseProvider = (props) => {
 
   // registration
   const signUpUserUsingEmailAndPassword = async (data) => {
-    dispatch(registerLoginSignOutUser("register", profile, data))
+    dispatch(registerLoginSignOutUser("register", profile, data, dispatch))
   }
 
   // sign in email/pw

@@ -26,9 +26,9 @@ export async function handleAuthStateChange(data, dispatch, setUser) {
   try {
     if (data) {
       const docSnap = await getSingleDoc("users", data.uid)
-      if (docSnap?.exists()) {
-        dispatch(getSingleUser(docSnap.data()))
-        setUser(docSnap.data())
+      if (docSnap?.data()) {
+        dispatch(getSingleUser(docSnap?.data()))
+        setUser(docSnap?.data())
       } else {
         dispatch(getSingleUser(null))
       }
@@ -76,7 +76,7 @@ export async function handleUploadImage(file, location) {
     })
     const imgRef = ref(storage, location)
     const upload = await uploadBytes(imgRef, compressImage)
-    const res = await getDownloadURL(upload.ref)
+    const res = await getDownloadURL(upload?.ref)
     return res
   } catch (error) {
     errorHandler(error)
@@ -84,7 +84,7 @@ export async function handleUploadImage(file, location) {
 }
 
 // handle user registration
-export async function handleRegistration(profile, data) {
+export async function handleRegistration(dispatch, profile, data) {
   try {
     if (profile) {
       return toast.info(
@@ -106,7 +106,7 @@ export async function handleRegistration(profile, data) {
     if (data?.profilePic && data?.profilePic !== "") {
       profilePicUrl = await handleUploadImage(
         data?.profilePic,
-        `users/profilePics/${Date.now()}-${data?.profilePic}`
+        `users/profilePics/${Date.now()}-${data?.profilePic?.name}`
       )
     }
     await setDoc(doc(db, "users", res.user.uid), {
@@ -118,6 +118,10 @@ export async function handleRegistration(profile, data) {
       uid: res.user.uid,
       tripIds: [],
     })
+
+    const newUserData = await getSingleDoc("users", res?.user?.uid)
+    console.log(newUserData, 'new user data');
+    dispatch(getSingleUser(newUserData.data()))
     return
   } catch (error) {
     return errorHandler(error)

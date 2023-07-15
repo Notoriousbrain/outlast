@@ -9,11 +9,12 @@ export const getSingleUser = (data) => {
 }
 
 // Register, signout and Login user
-export const registerLoginSignOutUser = (method, profile, data) => ({
+export const registerLoginSignOutUser = (method, profile, data, dispatch) => ({
   type: actionType.REGISTER_LOGIN_SIGNOUT_USER,
   method,
   profile,
   data,
+  dispatch,
 })
 
 // update user data
