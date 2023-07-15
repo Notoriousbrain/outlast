@@ -1,9 +1,16 @@
 import { onAuthStateChanged } from "firebase/auth"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { auth } from "./config"
+import { auth, db } from "./config"
 import { handleAuthStateChange } from "./utility"
-import { createTripAction, registerLoginSignOutUser } from "../redux/actions"
+import {
+  createTripAction,
+  getAllTripsAction,
+  registerLoginSignOutUser,
+  updateTripDataAction,
+  updateUserDataAction,
+} from "../redux/actions"
+import { collection, onSnapshot } from "firebase/firestore"
 
 // firebase context
 const FirebaseContext = createContext(null)
@@ -24,6 +31,19 @@ export const FirebaseProvider = (props) => {
     )
   }, [dispatch])
 
+  // useEffect to catch changes in any trips
+  useEffect(() => {
+    const tripChanges = onSnapshot(collection(db, "trips"), (coll) => {
+      let trips = []
+      coll.docs.forEach((doc) => {
+        trips.push(doc.data())
+      })
+      dispatch(getAllTripsAction(trips))
+    })
+
+    return () => tripChanges()
+  }, [dispatch])
+
   // registration
   const signUpUserUsingEmailAndPassword = async (data) => {
     dispatch(registerLoginSignOutUser("register", profile, data))
@@ -40,28 +60,19 @@ export const FirebaseProvider = (props) => {
   }
 
   // update user data
+  const updateUserData = async (data) => {
+    dispatch(updateUserDataAction(dispatch, profile, data))
+  }
 
   // create trip
   const createTrip = async (data) => {
-    dispatch(createTripAction(profile, data))
+    dispatch(createTripAction(dispatch, profile, data))
   }
 
-  const dummyData = {
-    startingFrom: "starting from location", // creators current location <city, state>
-    destination: "final destination", // <city, state>
-    limit: 5,
-    desc: "Some descripotion",
-    suggestions: "suggestion ke liye api chalega, uska res ka array yaa object",
+  // update trip data
+  const updateTripData = async (tripId, data) => {
+    dispatch(updateTripDataAction(profile, tripId, data))
   }
-
-  useEffect(() => {
-    const create = async () => {
-      setTimeout(() => {
-        createTrip(dummyData)
-      }, 6000)
-    }
-    create()
-  }, [])
 
   return (
     <FirebaseContext.Provider
@@ -70,6 +81,8 @@ export const FirebaseProvider = (props) => {
         signInUserUsingEmailAndPassword,
         signOutUser,
         createTrip,
+        updateUserData,
+        updateTripData,
       }}
     >
       {props.children}

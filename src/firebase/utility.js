@@ -28,7 +28,7 @@ export async function handleAuthStateChange(data, dispatch, setUser) {
       const docSnap = await getSingleDoc("users", data.uid)
       if (docSnap?.exists()) {
         dispatch(getSingleUser(docSnap.data()))
-        setUser(data)
+        setUser(docSnap.data())
       } else {
         dispatch(getSingleUser(null))
       }
@@ -37,7 +37,6 @@ export async function handleAuthStateChange(data, dispatch, setUser) {
       setUser(null)
     }
   } catch (error) {
-    console.log(error, "error")
     return errorHandler(error)
   }
 }
@@ -153,58 +152,81 @@ export async function hanldeSignOut(profile) {
       await signOut(auth)
     }
     if (profile !== "forced signout") toast.success("Signed out successfully.")
+    return
   } catch (error) {
     return errorHandler(error)
   }
 }
 
 // handle update user data
+export async function handleUpdateUserData(dispatch, profile, data) {
+  try {
+    if (!profile) {
+      return toast.warn("Please login to update your profile")
+    }
+
+    const userRef = doc(db, "users", profile?.uid)
+    await updateDoc(userRef, data)
+    const newUserData = await getSingleDoc("users", profile?.uid)
+    dispatch(getSingleUser(newUserData.data()))
+    return
+  } catch (error) {
+    return errorHandler(error)
+  }
+}
 
 // handle create trip
-export async function handleCreateTrip(profile, data) {
+export async function handleCreateTrip(dispatch, profile, data) {
   try {
-    console.log('here tak');
-    console.log(profile, 'profile');
     if (!profile) {
       return toast.warn("Please login to create a trip")
     }
-
-    console.log(profile, 'profile');
-    console.log(data, 'data');
-
     const tripData = {
-      // createdById: profile?.uid,
-      // createdByName: profile?.name,    not required actually
-      startingFrom: data?.startingFrom, //
-      destination: data?.destination, //
-      limit: data?.limit, //
-      desc: data?.desc, //
-      suggestions: data?.suggestion, //
+      startingFrom: data?.startingFrom,
+      destination: data?.destination,
+      nearbyStops: data?.nearbyStops,
+      endsOn: data?.endsOn,
+      limit: data?.limit,
+      desc: data?.desc,
+      suggestions: data?.suggestion,
+      image: "",
       comments: [],
       participants: [
         {
           name: profile?.name,
           number: profile?.number,
-          id: profile?.id,
+          id: profile?.uid,
           avatar: profile?.avatar,
         },
       ],
     }
-
     const res = await addDoc(collection(db, "trips"), tripData)
-    console.log(res, 'res');
     toast.success("Trip Created Successfully.")
-
     const userRef = doc(db, "users", profile?.uid)
     await updateDoc(userRef, {
-      tripIds: [...profile?.tripIds, res.id],
+      tripIds:
+        profile?.tripIds.length > 0 ? [...profile?.tripIds, res.id] : [res.id],
     })
-
     const tripRef = doc(db, "trips", res.id)
     await updateDoc(tripRef, {
       tripId: res.id,
     })
-    console.log('done');
+    const newUserData = await getSingleDoc("users", profile?.uid)
+    dispatch(getSingleUser(newUserData.data()))
+    return
+  } catch (error) {
+    return errorHandler(error)
+  }
+}
+
+// handle update trip data
+export async function handleUpdateTripData(profile, tripId, data) {
+  try {
+    if (!profile) {
+      return toast.warn("Please login to update your profile")
+    }
+    const tripRef = doc(db, "trips", tripId)
+    await updateDoc(tripRef, data)
     return
   } catch (error) {
     return errorHandler(error)

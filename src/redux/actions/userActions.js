@@ -16,9 +16,10 @@ export const registerLoginSignOutUser = (method, profile, data) => ({
   data,
 })
 
-// creating a trip
-export const createTripAction = (profile, data) => ({
-  type: actionType.CREATE_TRIP,
+// update user data
+export const updateUserDataAction = (dispatch, profile, data) => ({
+  type: actionType.UPDATE_USER_DATA,
+  dispatch,
   profile,
   data,
 })

@@ -3,9 +3,9 @@ import * as actionType from "../actions/actionTypes"
 import * as actionCreators from "../actions"
 import { toast } from "react-toastify"
 import {
-  handleCreateTrip,
   handleRegistration,
   handleSignIn,
+  handleUpdateUserData,
   hanldeSignOut,
 } from "../../firebase/utility"
 
@@ -36,11 +36,11 @@ export function* registerLoginSignOutSagaCall(action) {
   }
 }
 
-// Create trip saga
-export function* createTripSagaCall(action) {
+// Update user data saga
+export function* updateUserDataSagaCall(action) {
   try {
     yield put(actionCreators.toggleFirebaseLoader(true))
-    yield handleCreateTrip(action?.profile, action?.data)
+    yield handleUpdateUserData(action?.dispatch, action?.profile, action?.data)
     yield put(actionCreators.toggleFirebaseLoader(false))
   } catch (error) {
     yield put(actionCreators.toggleFirebaseLoader(false))

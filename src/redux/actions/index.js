@@ -1,10 +1,9 @@
 export {
   getSingleUser,
   registerLoginSignOutUser,
-  createTripAction
-} from "./userActions";
+  updateUserDataAction,
+} from "./userActions"
 
-export {
-  toggleMainLoader,
-  toggleFirebaseLoader
-} from "./loaderActions";
+export { createTripAction, getAllTripsAction, updateTripDataAction } from "./tripActions"
+
+export { toggleMainLoader, toggleFirebaseLoader } from "./loaderActions"

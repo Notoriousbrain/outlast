@@ -1,6 +1,7 @@
 import { takeLatest } from "redux-saga/effects"
 import * as actionTypes from "../actions/actionTypes"
 import * as userMiddleware from "./userSaga"
+import * as tripMiddleware from "./tripSaga"
 
 export default function* mySaga() {
   yield takeLatest(
@@ -11,8 +12,13 @@ export default function* mySaga() {
     actionTypes.REGISTER_LOGIN_SIGNOUT_USER,
     userMiddleware.registerLoginSignOutSagaCall
   )
+  yield takeLatest(actionTypes.CREATE_TRIP, tripMiddleware.createTripSagaCall)
   yield takeLatest(
-    actionTypes.CREATE_TRIP,
-    userMiddleware.createTripSagaCall
+    actionTypes.UPDATE_USER_DATA,
+    userMiddleware.updateUserDataSagaCall
+  )
+  yield takeLatest(
+    actionTypes.UPDATE_TRIP_DATA,
+    tripMiddleware.updateTripDataSagaCall
   )
 }
