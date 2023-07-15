@@ -21,4 +21,8 @@ export default function* mySaga() {
     actionTypes.UPDATE_TRIP_DATA,
     tripMiddleware.updateTripDataSagaCall
   )
+  yield takeLatest(
+    actionTypes.JOIN_TRIP,
+    tripMiddleware.joinTripSagaCall
+  )
 }

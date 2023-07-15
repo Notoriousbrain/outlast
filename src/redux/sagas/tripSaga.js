@@ -3,7 +3,9 @@ import * as actionType from "../actions/actionTypes"
 import * as actionCreators from "../actions"
 import { toast } from "react-toastify"
 import {
-  handleCreateTrip, handleUpdateTripData,
+  handleCreateTrip,
+  handleJoinTrip,
+  handleUpdateTripData,
 } from "../../firebase/utility"
 
 // Create trip saga
@@ -23,6 +25,18 @@ export function* updateTripDataSagaCall(action) {
   try {
     yield put(actionCreators.toggleFirebaseLoader(true))
     yield handleUpdateTripData(action?.profile, action?.tripId, action?.data)
+    yield put(actionCreators.toggleFirebaseLoader(false))
+  } catch (error) {
+    yield put(actionCreators.toggleFirebaseLoader(false))
+    toast.error(error)
+  }
+}
+
+// Join trip saga
+export function* joinTripSagaCall(action) {
+  try {
+    yield put(actionCreators.toggleFirebaseLoader(true))
+    yield handleJoinTrip(action?.dispatch, action?.profile, action?.trip)
     yield put(actionCreators.toggleFirebaseLoader(false))
   } catch (error) {
     yield put(actionCreators.toggleFirebaseLoader(false))

@@ -21,3 +21,11 @@ export const updateTripDataAction = (profile, tripId, data) => ({
   tripId,
   data,
 })
+
+// join trip
+export const joinTripAction = (dispatch, profile, trip) => ({
+  type: actionType.JOIN_TRIP,
+  dispatch,
+  profile,
+  trip,
+})

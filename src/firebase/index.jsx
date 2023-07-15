@@ -6,6 +6,7 @@ import { handleAuthStateChange } from "./utility"
 import {
   createTripAction,
   getAllTripsAction,
+  joinTripAction,
   registerLoginSignOutUser,
   updateTripDataAction,
   updateUserDataAction,
@@ -74,6 +75,11 @@ export const FirebaseProvider = (props) => {
     dispatch(updateTripDataAction(profile, tripId, data))
   }
 
+  // join trip
+  const joinTrip = async (trip) => {
+    dispatch(joinTripAction(dispatch, profile, trip))
+  }
+
   return (
     <FirebaseContext.Provider
       value={{
@@ -83,6 +89,7 @@ export const FirebaseProvider = (props) => {
         createTrip,
         updateUserData,
         updateTripData,
+        joinTrip,
       }}
     >
       {props.children}

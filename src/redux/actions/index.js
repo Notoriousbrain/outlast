@@ -4,6 +4,11 @@ export {
   updateUserDataAction,
 } from "./userActions"
 
-export { createTripAction, getAllTripsAction, updateTripDataAction } from "./tripActions"
+export {
+  createTripAction,
+  getAllTripsAction,
+  updateTripDataAction,
+  joinTripAction,
+} from "./tripActions"
 
 export { toggleMainLoader, toggleFirebaseLoader } from "./loaderActions"

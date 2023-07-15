@@ -232,3 +232,54 @@ export async function handleUpdateTripData(profile, tripId, data) {
     return errorHandler(error)
   }
 }
+
+// handle join trip
+export async function handleJoinTrip(dispatch, profile, trip) {
+  try {
+    console.log(profile, trip, "profile trip")
+    if (!profile) {
+      console.log("Please login to update your profile")
+      return toast.warn("Please login to update your profile")
+    }
+    if (trip?.participants[0]?.id === profile?.uid) {
+      return toast.warn(
+        "You are the owner of this trip, as such you are already a member"
+      )
+    }
+
+    for (const singleTrip of profile?.tripIds) {
+      if (singleTrip === trip?.tripId) {
+        return toast.warn("You are already a member")
+      }
+    }
+
+    const prevParticipants = trip?.participants
+    const updatedParticipants = [
+      ...prevParticipants,
+      {
+        name: profile?.name,
+        number: profile?.number,
+        id: profile?.uid,
+        avatar: profile?.avatar,
+      },
+    ]
+
+    const tripRef = doc(db, "trips", trip?.tripId)
+    await updateDoc(tripRef, {
+      participants: updatedParticipants,
+    })
+
+    const userRef = doc(db, "users", profile?.uid)
+    await updateDoc(userRef, {
+      tripIds:
+        profile?.tripIds.length > 0
+          ? [...profile?.tripIds, trip?.tripId]
+          : [trip?.tripId],
+    })
+    const newUserData = await getSingleDoc("users", profile?.uid)
+    dispatch(getSingleUser(newUserData.data()))
+    return
+  } catch (error) {
+    return errorHandler(error)
+  }
+}
