@@ -1,11 +1,19 @@
 import React from 'react'
+import NavBar from '../components/Navbar/NavBar'
+import SuggestionCarousel from '../components/Suggestion/SuggestionCarousel'
+import SearchBar from '../components/SearchTrips/SearchBar'
+import BottomLoginBar from '../components/Modals/BottomLoginBar'
 
 const HomeScreen = () => {
   return (
     <div
-      className=" bg-primary min-h-screen text-text  "
+      className=" bg-primary min-h-screen flex flex-col text-text "
     >
-      OUTLAST
+      <NavBar />
+      <SuggestionCarousel />
+      <SearchBar />
+      <BottomLoginBar />
+
     </div>
   )
 }

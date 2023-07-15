@@ -6,12 +6,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#1a1a1e',
-        border: '#2b2b2f',
-        text: '#faf6ef',
+        primary: '#ffffff',
+        border: '#10101088',
+        lightBorder: '#10101033',
+        text: '#000000',
+        secondary: '#f2f2f2',
+        primaryDark: '#000000',
+        secondaryDark: '#e5e5e5',
+        textDark: '#ffffff',
+        lightText: '#999999',
+        lightBackground: '#37322Fcc',
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
 }
 
