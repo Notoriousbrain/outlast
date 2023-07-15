@@ -1,19 +1,15 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const NavBar = ({ profile }) => {
 
-    const [enable, setEnable] = useState(false)
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        setEnable( window.location.pathname === "/" ? false : true)
-    }, [ window.location.pathname])
 
     return (
         <div
-            className={" flex p-4 text-text " 
-            + (enable && " flex ")
-        }
+            className={" flex p-2 md:p-4 text-text " }
         >
             <div
                 className="flex justify-between flex-row border p-4 border-border h-full w-full flex-1 items-center rounded-full  "
@@ -23,13 +19,9 @@ const NavBar = ({ profile }) => {
                 <div
                     className="flex flex-row items-center"
                 >
-                    {/* <img
-                        className="h-10 w-10 rounded-full object-cover hover:opacity-50 cursor-pointer duration-200 "
-                        src="https://api.multiavatar.com/unknown.svg"
-                        alt="logo"
-                    /> */}
                     <h1
-                        className="text-2xl font-bold ml-4 duration-200 hover:blur-[1px] cursor-pointer"
+                        onClick={() => navigate("/") }
+                        className=" text-xl md:text-2xl font-bold ml-2 md:ml-4 duration-200 hover:blur-[1px] cursor-pointer"
                     >
                         OutLast  
                     </h1>
@@ -39,9 +31,17 @@ const NavBar = ({ profile }) => {
 
                 {/* profile */}
                 <div
-                    className="flex flex-row items-center"
+                    className="flex flex-row gap-2 md:gap-4 items-center"
                 >
+                    <h1
+                        onClick={() => profile ? navigate("/profile") : navigate("/login")}
+                        className=" border border-lightBorder p-2 md:hover:px-6  rounded-full px-4 font-bold duration-200 hover:blur-[1px] cursor-pointer"
+                    >
+                        {profile ? profile.name : "Login"}
+                    </h1>
+
                     <img
+                        onClick={() => profile ? navigate("/profile") : navigate("/login") }
                         className="h-10 w-10 rounded-full object-cover hover:blur-[1px] cursor-pointer duration-200 "
                         src={profile ? profile.profilePicture : "https://api.multiavatar.com/unknown.svg"}
                         alt="profile"
