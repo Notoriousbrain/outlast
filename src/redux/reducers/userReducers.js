@@ -1,9 +1,13 @@
-import * as actionType from '../actions/actionTypes'
+import * as actionType from "../actions/actionTypes"
 
-const initialState = {
-  profile: []
-}
-
-export const userData = (state = initialState, action) => {
-  return state
+export const userData = (state = {}, action) => {
+  switch (action.type) {
+    case actionType.GET_SINGLE_USER:
+      return {
+        ...state,
+        profile: action?.data,
+      }
+    default:
+      return state
+  }
 }

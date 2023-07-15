@@ -171,6 +171,6 @@ export async function errorHandler(error) {
   const errorIdentifier = String(errorArray[1])
     .slice(1, String(errorArray[1]).length - 2)
     .split("/")[1];
-  console.log(errorIdentifier);
+    console.log(error);
   return toast.error(authErrors[errorIdentifier]);
 }
