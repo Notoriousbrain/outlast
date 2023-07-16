@@ -9,6 +9,7 @@ export {
   getAllTripsAction,
   updateTripDataAction,
   joinTripAction,
+  commentOnTripAction,
 } from "./tripActions"
 
 export { toggleMainLoader, toggleFirebaseLoader } from "./loaderActions"

@@ -8,6 +8,15 @@
   outline: auto;
 } */
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 body, #root  {
   font-family: 'Poppins', sans-serif;
   /* background: #111; */

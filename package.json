@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.19.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "@themesberg/tailwind-datepicker": "^1.1.0",
     "axios": "^1.4.0",
     "browser-image-compression": "^2.0.2",
     "firebase": "^10.0.0",
@@ -25,6 +26,7 @@
     "redux": "^4.2.1",
     "redux-saga": "^1.2.3",
     "tailwind-scrollbar": "^3.0.4",
+    "use-places-autocomplete": "^4.0.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
