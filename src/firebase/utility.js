@@ -109,8 +109,7 @@ export async function handleRegistration(dispatch, profile, data) {
         `users/profilePics/${Date.now()}-${data?.profilePic?.name}`
       )
     } else {
-      profilePicUrl =
-        `https://api.multiavatar.com/${data?.name}.svg`
+      profilePicUrl = `https://api.multiavatar.com/${data?.name}.svg`
     }
     await setDoc(doc(db, "users", res.user.uid), {
       email: data?.email,
@@ -123,7 +122,7 @@ export async function handleRegistration(dispatch, profile, data) {
     })
 
     const newUserData = await getSingleDoc("users", res?.user?.uid)
-    console.log(newUserData, 'new user data');
+    console.log(newUserData, "new user data")
     dispatch(getSingleUser(newUserData.data()))
     return
   } catch (error) {
@@ -171,9 +170,22 @@ export async function handleUpdateUserData(dispatch, profile, data) {
     if (!profile) {
       return toast.warn("Please login to update your profile")
     }
-
+    let profilePicUrl = ""
+    if (data?.profilePic && data?.profilePic !== "") {
+      profilePicUrl = await handleUploadImage(
+        data?.profilePic,
+        `users/profilePics/${Date.now()}-${data?.profilePic?.name}`
+      )
+    } else {
+      profilePicUrl = `https://api.multiavatar.com/${data?.name}.svg`
+    }
+    const userData = {
+      name: data?.name,
+      number: data?.number,
+      avatar: profilePicUrl,
+    }
     const userRef = doc(db, "users", profile?.uid)
-    await updateDoc(userRef, data)
+    await updateDoc(userRef, userData)
     const newUserData = await getSingleDoc("users", profile?.uid)
     dispatch(getSingleUser(newUserData.data()))
     return
