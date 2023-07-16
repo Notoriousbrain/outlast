@@ -108,6 +108,9 @@ export async function handleRegistration(dispatch, profile, data) {
         data?.profilePic,
         `users/profilePics/${Date.now()}-${data?.profilePic?.name}`
       )
+    } else {
+      profilePicUrl =
+        `https://api.multiavatar.com/${data?.name}.svg`
     }
     await setDoc(doc(db, "users", res.user.uid), {
       email: data?.email,
