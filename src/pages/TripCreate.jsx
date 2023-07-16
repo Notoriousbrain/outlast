@@ -6,9 +6,12 @@ import { useParams, useLocation } from 'react-router-dom'
 import TripDetails from '../components/TripCreate/TripDetails'
 import { useNavigate } from 'react-router-dom'
 import NearByCard from '../components/TripCreate/NearByCard'
+import { useSelector } from 'react-redux'
 
 
 const TripCreate = () => {
+
+    const { profile } = useSelector((state) => state?.userData)
 
     const [start, setStart] = useState(null)
     const [end, setEnd] = useState(null)
@@ -40,7 +43,9 @@ const TripCreate = () => {
         <div
             className=" bg-primary min-h-screen overflow-x-hidden w-full flex flex-col text-text "
         >
-            <NavBar />
+            <NavBar
+                profile={profile}
+            />
             <div
                 className="flex flex-col flex-grow gap-2 p-4 pt-0 "
             >
