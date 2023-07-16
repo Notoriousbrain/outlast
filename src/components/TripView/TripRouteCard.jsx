@@ -5,8 +5,9 @@ import {
   LoadScript,
   GoogleMap,
   StandaloneSearchBox,
-} from "@react-google-maps/api"
-import PlacesAutocomplete, { geocodeByPlaceId } from "react-places-autocomplete"
+  Autocomplete,
+} from "@react-google-maps/api";
+import PlacesAutocomplete, { geocodeByPlaceId } from 'react-places-autocomplete';
 
 const TripRouteCard = ({ editable }) => {
   const [libraries] = useState(["places"])

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import HomeScreen from "./pages/HomeScreen"
+import About from "./pages/About"
 import LoginRegister from "./pages/LoginRegister"
 import NavBar from "./components/Navbar/NavBar"
 import TripCreate from "./pages/TripCreate"
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/signup" element={<LoginRegister />} />
             <Route path="/create-trip" element={<TripCreate />} />
             <Route path="/trip/:id" element={<TripView />} />
+            <Route path="/about-us" element={<About />} />
           </Routes>
         </Router>
       )}

@@ -24,8 +24,8 @@ const NavBar = ({ profile }) => {
         />
       )}
 
-            <div className="flex justify-between flex-row border p-1 md:p-4 border-border h-full w-full flex-1 items-center rounded-full  ">
-                {/* logo */}
+      <div className="flex justify-between flex-row border p-1 md:p-4 border-border h-full w-full flex-1 items-center rounded-full  ">
+        {/* logo */}
 
         <div className="flex flex-row items-center">
           <h1
@@ -40,6 +40,12 @@ const NavBar = ({ profile }) => {
 
         {/* profile */}
         <div className="flex flex-row gap-2 md:gap-4 items-center">
+          <h1
+            onClick={() => navigate("/about-us")}
+            className=" border border-lightBorder p-2 md:hover:px-6  rounded-full px-4 font-bold duration-200 hover:blur-[1px] cursor-pointer hidden md:block"
+          >
+            About
+          </h1>
           <h1
             onClick={() =>
               profile ? navigate("/create-trip") : navigate("/login")
@@ -72,7 +78,7 @@ const NavBar = ({ profile }) => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default NavBar
