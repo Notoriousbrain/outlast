@@ -109,8 +109,7 @@ export async function handleRegistration(dispatch, profile, data) {
         `users/profilePics/${Date.now()}-${data?.profilePic?.name}`
       )
     } else {
-      profilePicUrl =
-        `https://api.multiavatar.com/${data?.name}.svg`
+      profilePicUrl = `https://api.multiavatar.com/${data?.name}.svg`
     }
     await setDoc(doc(db, "users", res.user.uid), {
       email: data?.email,
@@ -123,7 +122,7 @@ export async function handleRegistration(dispatch, profile, data) {
     })
 
     const newUserData = await getSingleDoc("users", res?.user?.uid)
-    console.log(newUserData, 'new user data');
+    console.log(newUserData, "new user data")
     dispatch(getSingleUser(newUserData.data()))
     return
   } catch (error) {
@@ -171,9 +170,22 @@ export async function handleUpdateUserData(dispatch, profile, data) {
     if (!profile) {
       return toast.warn("Please login to update your profile")
     }
-
+    let profilePicUrl = ""
+    if (data?.profilePic && data?.profilePic !== "") {
+      profilePicUrl = await handleUploadImage(
+        data?.profilePic,
+        `users/profilePics/${Date.now()}-${data?.profilePic?.name}`
+      )
+    } else {
+      profilePicUrl = `https://api.multiavatar.com/${data?.name}.svg`
+    }
+    const userData = {
+      name: data?.name,
+      number: data?.number,
+      avatar: profilePicUrl,
+    }
     const userRef = doc(db, "users", profile?.uid)
-    await updateDoc(userRef, data)
+    await updateDoc(userRef, userData)
     const newUserData = await getSingleDoc("users", profile?.uid)
     dispatch(getSingleUser(newUserData.data()))
     return
@@ -189,6 +201,7 @@ export async function handleCreateTrip(dispatch, profile, data) {
       return toast.warn("Please login to create a trip")
     }
     const tripData = {
+      tripName: data?.tripName,
       startingFrom: data?.startingFrom,
       destination: data?.destination,
       nearbyStops: data?.nearbyStops,
@@ -243,9 +256,7 @@ export async function handleUpdateTripData(profile, tripId, data) {
 // handle join trip
 export async function handleJoinTrip(dispatch, profile, trip) {
   try {
-    console.log(profile, trip, "profile trip")
     if (!profile) {
-      console.log("Please login to update your profile")
       return toast.warn("Please login to update your profile")
     }
     if (trip?.participants[0]?.id === profile?.uid) {
@@ -285,6 +296,31 @@ export async function handleJoinTrip(dispatch, profile, trip) {
     })
     const newUserData = await getSingleDoc("users", profile?.uid)
     dispatch(getSingleUser(newUserData.data()))
+    return
+  } catch (error) {
+    return errorHandler(error)
+  }
+}
+
+// handle comment on trip
+export async function handleCommentOnTrip(profile, trip, comment) {
+  try {
+    if (!profile) {
+      return toast.warn("Please login to update your profile")
+    }
+    const prevComments = trip?.comments
+    const updatedComments =
+      prevComments?.length > 0
+        ? [
+            ...prevComments,
+            { userId: profile?.uid, userName: profile?.name, comment },
+          ]
+        : [{ userId: profile?.uid, userName: profile?.name, comment }]
+
+    const tripRef = doc(db, "trips", trip?.tripId)
+    await updateDoc(tripRef, {
+      comments: updatedComments,
+    })
     return
   } catch (error) {
     return errorHandler(error)

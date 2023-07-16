@@ -29,3 +29,11 @@ export const joinTripAction = (dispatch, profile, trip) => ({
   profile,
   trip,
 })
+
+// comment on trip
+export const commentOnTripAction = (profile, trip, comment) => ({
+  type: actionType.COMMENT_ON_TRIP,
+  profile,
+  trip,
+  comment,
+})

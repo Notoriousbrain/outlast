@@ -25,4 +25,8 @@ export default function* mySaga() {
     actionTypes.JOIN_TRIP,
     tripMiddleware.joinTripSagaCall
   )
+  yield takeLatest(
+    actionTypes.COMMENT_ON_TRIP,
+    tripMiddleware.commentOnTripSagaCall
+  )
 }

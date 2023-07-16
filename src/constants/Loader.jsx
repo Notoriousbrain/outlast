@@ -9,8 +9,8 @@ const Loader = () => {
         alt="loader"
         className="w-[100px]  h-[100px] object-contain"
       />
-      <p className="mt-[20px] font-hel text-4xl text-violet-600 font-bold text-center">
-        Vibing...
+      <p className="mt-[20px] font-hel text-3xl text-[#454545] font-bold text-center">
+        All great things take time...
       </p>
     </div>
   )

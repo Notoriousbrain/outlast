@@ -52,6 +52,13 @@ const LoginRegister = () => {
 
   return (
     <div className=" bg-primary min-h-screen flex flex-col text-text justify-center items-center  ">
+      <button
+        className="absolute text-sm  border-border/25 border px-3 py-2 rounded-full top-10 left-10"
+        onClick={() => navigate("/")}
+      >
+        {" "}
+        &larr; Back
+      </button>
       <div className="flex flex-col gap-2 w-[300px]  ">
         <div className="flex flex-col gap-2 w-full ">
           <h1 className=" flex flex-col text-2xl font-semibold mb-2 w-full">
