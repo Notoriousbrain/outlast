@@ -8,7 +8,7 @@ const NavBar = ({ profile }) => {
     const [profileModal, setProfileModal] = useState(false)
 
     return (
-        <div className={" flex p-2 md:p-4 text-text "}>
+        <div className={" flex p-2 md:p-4 text-text w-screen "}>
 
             {/* profile modal */}
             {profileModal && (
@@ -18,7 +18,7 @@ const NavBar = ({ profile }) => {
                 />
             )}
 
-            <div className="flex justify-between flex-row border p-4 border-border h-full w-full flex-1 items-center rounded-full  ">
+            <div className="flex justify-between flex-row border p-1 md:p-4 border-border h-full w-full flex-1 items-center rounded-full  ">
                 {/* logo */}
 
                 <div className="flex flex-row items-center">
@@ -38,13 +38,13 @@ const NavBar = ({ profile }) => {
                 >
                     <h1
                         onClick={() => profile ? navigate('/create-trip') : navigate("/login")}
-                        className=" border border-lightBorder p-2 md:hover:px-6  rounded-full px-4 font-bold duration-200 hover:blur-[1px] cursor-pointer"
+                        className=" border border-lightBorder p-1 md:p-4 md:hover:px-6  rounded-full px-2 md:px-4 font-bold duration-200 hover:blur-[1px] cursor-pointer"
                     >
-                        Create Trip
+                        New Trip
                     </h1>
                     <h1
                         onClick={() => profile ? setProfileModal(!profileModal) : navigate("/login")}
-                        className=" border border-lightBorder p-2 md:hover:px-6  rounded-full px-4 font-bold duration-200 hover:blur-[1px] cursor-pointer"
+                        className=" rounded-full font-bold duration-200 hover:blur-[1px] cursor-pointer"
                     >
                         {profile ? profile.name : "Login"}
                     </h1>
