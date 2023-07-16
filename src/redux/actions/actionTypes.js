@@ -15,3 +15,5 @@ export const UPDATE_TRIP_DATA = "UPDATE_TRIP_DATA"
 export const GET_ALL_TRIPS = "GET_ALL_TRIPS"
 
 export const JOIN_TRIP = "JOIN_TRIP"
+
+export const COMMENT_ON_TRIP = 'COMMENT_ON_TRIP'

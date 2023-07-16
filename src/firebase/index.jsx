@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { auth, db } from "./config"
 import { handleAuthStateChange } from "./utility"
 import {
+  commentOnTripAction,
   createTripAction,
   getAllTripsAction,
   joinTripAction,
@@ -80,6 +81,10 @@ export const FirebaseProvider = (props) => {
     dispatch(joinTripAction(dispatch, profile, trip))
   }
 
+  const commentOnTrip = async (trip, comment) => {
+    dispatch(commentOnTripAction(profile, trip, comment))
+  }
+
   return (
     <FirebaseContext.Provider
       value={{
@@ -90,6 +95,7 @@ export const FirebaseProvider = (props) => {
         updateUserData,
         updateTripData,
         joinTrip,
+        commentOnTrip,
       }}
     >
       {props.children}
