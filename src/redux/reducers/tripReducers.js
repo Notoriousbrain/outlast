@@ -1,11 +1,11 @@
 import * as actionType from "../actions/actionTypes"
 
-export const userData = (state = {}, action) => {
+export const tripData = (state = {}, action) => {
   switch (action.type) {
-    case actionType.GET_SINGLE_USER:
+    case actionType.GET_ALL_TRIPS:
       return {
         ...state,
-        profile: action?.data,
+        allTrips: action?.data,
       }
     default:
       return state
